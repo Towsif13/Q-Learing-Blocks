@@ -53,33 +53,33 @@ else:
     with open(start_q_table, 'rb') as f:
         q_table = pickle.load(f)
 
-print(f'{drone.x},{drone.y}')
+# print(f'{drone.x},{drone.y}')
 
 
-def show_screen():
+# def show_screen():
 
-    game_exit = False
+#     game_exit = False
 
-    while not game_exit:
+#     while not game_exit:
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game_exit = True
+#         for event in pygame.event.get():
+#             if event.type == pygame.QUIT:
+#                 game_exit = True
 
-            if event.type == pygame.KEYDOWN:
-                drone.drone_move(BLOCK_VELOCITY, event.key)
+#             if event.type == pygame.KEYDOWN:
+#                 drone.drone_move(BLOCK_VELOCITY, event.key)
 
-                if(drone.x < 0 or drone.x >= screen_width or drone.y < 0 or drone.y >= screen_height):
-                    print('out')
+#                 if(drone.x < 0 or drone.x >= screen_width or drone.y < 0 or drone.y >= screen_height):
+#                     print('out')
 
-        pygame_display.fill(BLACK)
+#         pygame_display.fill(BLACK)
 
-        pygame.draw.rect(pygame_display, drone.color, [
-            drone.x, drone.y, drone.size, drone.size])
-        pygame.draw.rect(pygame_display, man.color, [
-            man_x, man_y, man.size, man.size])
+#         pygame.draw.rect(pygame_display, drone.color, [
+#             drone.x, drone.y, drone.size, drone.size])
+#         pygame.draw.rect(pygame_display, man.color, [
+#             man_x, man_y, man.size, man.size])
 
-        pygame.display.update()
+#         pygame.display.update()
 
 
 def man_position(drone_x, drone_y, screen_width, screen_height):
@@ -93,7 +93,8 @@ for episode in range(NUM_EPISODE):
     drone = Drone(20, screen_height - 40, BLOCK_SIZE, RED)
     #man = Man(BLOCK_SIZE, BLUE1)
 
-    man_x, man_y = man_position(drone.x, drone.y, screen_width, screen_height)
+    man_x, man_y = man_position(
+        drone.x, drone.y, screen_width, screen_height)  # random man position
 
     #print(drone.x, drone.y, screen_width, screen_height)
     # man_x = random.randint(0, (screen_width-man.size)//man.size)*man.size
@@ -107,10 +108,11 @@ for episode in range(NUM_EPISODE):
             print(
                 f'[{episode-SHOW_EVERY} episode to {episode} episode] mean is {np.mean(episode_rewards[-SHOW_EVERY:])}')
             print('')
-            show = False
+            #show = False
 
     else:
-        show = False
+        pass
+        #show = False
 
     episode_reward = 0
 
@@ -157,8 +159,8 @@ for episode in range(NUM_EPISODE):
 
         q_table[obs][action] = new_q
 
-        if show:
-            show_screen()  # todo
+        # if show:
+        #     show_screen()  # todo
 
         episode_reward += reward
         if reward == MAN_FOUND_REWARD or reward == BOUNDARY_HIT_PENALTY:
