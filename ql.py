@@ -175,4 +175,5 @@ moving_avg = np.convolve(episode_rewards, np.ones(
 plt.plot([i for i in range(len(moving_avg))], moving_avg)
 plt.ylabel(f'reward {SHOW_EVERY} moving avg')
 plt.xlabel('episode number')
+plt.savefig('graph.png')
 plt.show()
